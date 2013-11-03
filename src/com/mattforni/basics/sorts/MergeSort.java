@@ -1,4 +1,4 @@
-package com.mattforni.basics.sort;
+package com.mattforni.basics.sorts;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -7,6 +7,7 @@ public abstract class MergeSort {
     // TODO set up a logger which logs to system out by default.
     /**
      * Sorts the provided unsorted array by performing a merge sort.
+     *
      * @param list An unsorted list of Comparable objects to be sorted.
      * @return A sorted list of Comparable objects.
      */
@@ -32,6 +33,7 @@ public abstract class MergeSort {
         return merge(left, right);
     }
 
+    // TODO javadoc
     private static <T extends Comparable<T>> List<T> merge(
             final List<T> left, final List<T> right) {
         // Initialize indices, sizes and the new list to be merged into.
