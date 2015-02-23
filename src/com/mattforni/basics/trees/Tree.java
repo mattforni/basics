@@ -49,7 +49,6 @@ public class Tree<K, V> {
     private Node<K, V> depthFirstSearch(final Node<K, V> node, final K key) {
         // If the key has been found return the associated node.
         if (node.getKey().equals(key)) { return node; }
-        System.out.println("Visiting "+node.toString());
 
         // Otherwise recursively search each of the child paths.
         for (final Node<K, V> child : node.getChildren()) {
