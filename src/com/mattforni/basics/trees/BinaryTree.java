@@ -6,56 +6,41 @@ import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
 
 // TODO javadoc
-public class BinaryTree<K, V> {
-    private Node<K, V> root;
-
-    public ImmutableList<Node<K, V>> inorder() {
+public class BinaryTree<K, V> extends Tree<K, V> {
+    public final List<Node<K, V>> inorder() {
         if (root == null) { return ImmutableList.of(); }
         List<Node<K, V>> inorder = Lists.newLinkedList();
-        inorder(root, inorder);
+        inorder((BinaryNode<K, V>)root, inorder);
         return ImmutableList.copyOf(inorder);
     }
 
     // TODO javadoc
-    private final void inorder(final Node<K, V> node,
-            final List<Node<K, V>> list) {
+    private void inorder(final BinaryNode<K, V> node, final List<Node<K, V>> list) {
         if (node.hasLeft()) { inorder(node.getLeft(), list); }
         list.add(node);
         if (node.hasRight()) { inorder(node.getRight(), list); }
     }
 
     // TODO javadoc all
-    public static class Node<K, V> {
-        private final K key;
-        private final V value;
-        private Node<K, V> left, right;
-        public Node(final K key, final V value) {
-            this.key = key;
-            this.value = value;
+    public static class BinaryNode<K, V> extends Node<K, V> {
+        public BinaryNode(final K key, final V value) {
+            super(key, value, 2);
         }
 
-        public final K getKey() {
-            return key;
+        public final BinaryNode<K, V> getLeft() {
+            return (BinaryNode<K, V>)children.get(0);
         }
 
-        public final Node<K, V> getLeft() {
-            return left;
-        }
-
-        public final Node<K, V> getRight() {
-            return right;
-        }
-
-        public final V getValue() {
-            return value;
+        public final BinaryNode<K, V> getRight() {
+            return (BinaryNode<K, V>)children.get(1);
         }
 
         public final boolean hasLeft() {
-            return left != null;
+            return getLeft() != null;
         }
 
         public final boolean hasRight() {
-            return right != null;
+            return getRight() != null;
         }
     }
 }
