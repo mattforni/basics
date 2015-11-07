@@ -1,5 +1,10 @@
 package com.mattforni.basics.trees;
 
+import java.util.Queue;
+import java.util.Stack;
+
+import com.google.common.collect.Queues;
+
 /**
  * The most basic representation of a Tree data structure.
  * @author Matthew Fornaciari <mattforni@gmail.com>
@@ -34,6 +39,22 @@ public class Tree<K, V> {
                 throw new NodeAlreadyExists("There is already a root node");
             }
         }
+    }
+
+    public final Node<K, V> breadthFirstSearch(final K key) {
+        final Queue<Node<K, V>> nodes = Queues.newArrayDeque();
+        if (root != null) { nodes.add(root); }
+
+        while (!nodes.isEmpty()) {
+            final Node<K, V> node = nodes.poll();
+            if (node.getKey().equals(key)) { return node; }
+
+            for (final Node<K, V> child : node.getChildren()) {
+                nodes.add(child);
+            }
+        }
+
+        return null;
     }
 
     /**
@@ -75,6 +96,17 @@ public class Tree<K, V> {
     public static class NodeNotFound extends NodeException {
         public NodeNotFound(final String message) {
             super(message);
+        }
+    }
+
+    public static enum Search {
+        DFS (Queue.class),
+        BFS (Stack.class);
+
+        private final Class dataStructure;
+
+        private Search(final Class dataStructure) {
+            this.dataStructure = dataStructure;
         }
     }
 }
